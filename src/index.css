@@ -5,7 +5,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: #2D2D2D;
-  ;
+  overflow: hidden;
 }
 
 code {
@@ -28,10 +28,25 @@ font-family: 'Handlee', cursive;
   padding: 20px 30px 20px 30px;
   border-radius: 50px;
 }
-.circles {
-  margin-top: 9rem;
-  pad: 20px;
+.circle {
+  position: relative;
+}
+.circle span {
+  position: absolute;
+  display: block;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  align-content: center;   
 }
 .circle2 {
  margin-left: 15rem;
+}
+.circles h2 {
+  color: white;
+  font-size: 25px;
+}
+.board span {
+  right: 77%;
+  top: 30%;
 }

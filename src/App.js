@@ -1,15 +1,16 @@
-
-import './App.css';
-import FinalBoard from './components/FinalBoard';
-import GameBoard from './components/GameBoard'
-import TotalTable from './components/TotalTable'
+import { Route, Routes } from "react-router-dom";
+import "./App.css";
+import FinalBoard from "./components/FinalBoard";
+import GameBoard from "./components/GameBoard";
+import OpeningPage from "./components/OpeningPage";
 
 function App() {
   return (
     <div className="App">
-      <TotalTable/>
-      <FinalBoard/>
-      <GameBoard/>
+    <Routes>
+      <Route path="/" element={<OpeningPage />} />
+      <Route path="/question/:questionId" element={<GameBoard />} />
+    </Routes>
     </div>
   );
 }
