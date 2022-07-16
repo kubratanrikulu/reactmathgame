@@ -10,6 +10,7 @@ function App() {
     <Routes>
       <Route path="/" element={<OpeningPage />} />
       <Route path="/question/:questionId" element={<GameBoard />} />
+      <Route path="/final" element={<FinalBoard />} />
     </Routes>
     </div>
   );

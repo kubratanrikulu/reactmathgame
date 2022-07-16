@@ -6,7 +6,7 @@ const GameContextProvider = ({ children }) => {
   const [questionState, setQuestionState] = useState({
     score: 0,
     tour: 1,
-    question: 0
+    question: 1
   });
 
   const values = {questionState, setQuestionState};

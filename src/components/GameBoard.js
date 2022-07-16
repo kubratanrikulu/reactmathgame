@@ -14,16 +14,18 @@ const initialState = {
   shouldCalculated: false,
 };
 
+// todo context guncelle
+
 const GameBoard = () => {
   let { questionId } = useParams();
   const navigate = useNavigate();
   const {
     questionState: { score, tour, question },
+    setQuestionState
   } = useGameContext();
 
   const [gameBoardState, setGameBoardState] = useState(initialState);
-  const { answer, isAnswerCorrect, bgColor,  shouldCalculated } =
-    gameBoardState;
+  const { answer, isAnswerCorrect, bgColor, shouldCalculated } = gameBoardState;
 
   const randomNumberOne = useMemo(() => randomNumberGenerate(), [questionId]);
   const randomNumberTwo = useMemo(() => randomNumberGenerate(), [questionId]);
@@ -59,7 +61,6 @@ const GameBoard = () => {
   useEffect(() => {
     let id;
     if (answer && shouldCalculated) {
-      console.log("tetiklendi");
       id = setTimeout(() => {
         setGameBoardState({
           ...gameBoardState,
@@ -67,7 +68,34 @@ const GameBoard = () => {
           bgColor: undefined,
           shouldCalculated: false,
         });
-        navigate(`/question/${Number(questionId) + 1}`);
+       
+        const pageNumber = parseInt(questionId, 10);
+        let navigateToUri = `/question/${pageNumber + 1}`;
+        // onceki state degerlerini kullanmak istiyorsak
+        // prevState ile kullaniyor olmak daha dogru olur
+
+        if (pageNumber === 10) {
+          navigateToUri = '/final';
+
+          const localTotalScore = JSON.parse(localStorage.getItem('totalScore')) ?? 0;
+          const localTotalQuestion = JSON.parse(localStorage.getItem('totalQuestion')) ?? 0;
+          const localCorrectAnswer = JSON.parse(localStorage.getItem('correctAnswer')) ?? 0;
+      
+          localStorage.setItem('totalScore', localTotalScore + score);
+          localStorage.setItem('totalQuestion', localTotalQuestion + pageNumber);
+          // todo : dogru cevap sayisini context'de tut
+          // todo : dogru ve yanlis cevaplari context'de tut
+          localStorage.setItem('correctAnswer', localCorrectAnswer + answer);
+      
+        }
+
+        setQuestionState((prevState) => ({
+          score: isAnswerCorrect ? prevState.score + 20 : prevState.score,
+          tour: pageNumber === 10 ? prevState.tour + 1 : prevState.tour,
+          question: pageNumber + 1
+        }))
+
+        navigate(navigateToUri);
       }, 3000);
     }
 
