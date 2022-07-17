@@ -81,22 +81,25 @@ const GameBoard = () => {
           const localTotalQuestion = JSON.parse(localStorage.getItem('totalQuestion')) ?? 0;
           const localCorrectAnswer = JSON.parse(localStorage.getItem('correctAnswer')) ?? 0;
       
-          localStorage.setItem('totalScore', localTotalScore + score);
-          localStorage.setItem('totalQuestion', localTotalQuestion + pageNumber);
-          // todo : dogru cevap sayisini context'de tut
-          // todo : dogru ve yanlis cevaplari context'de tut
-          localStorage.setItem('correctAnswer', localCorrectAnswer + answer);
+          // localStorage.setItem('totalScore', localTotalScore + score);
+          // localStorage.setItem('totalQuestion', localTotalQuestion + pageNumber);
+          // localStorage.setItem('correctAnswer', localCorrectAnswer + answer);
       
         }
 
         setQuestionState((prevState) => ({
           score: isAnswerCorrect ? prevState.score + 20 : prevState.score,
           tour: pageNumber === 10 ? prevState.tour + 1 : prevState.tour,
-          question: pageNumber + 1
+          question: pageNumber + 1,
+          questions: [...prevState.questions, {
+            question: `${randomNumberOne} * ${randomNumberTwo}`,
+            answer,
+            status: result === answer ? '✔️' : '❌'
+          }]
         }))
 
         navigate(navigateToUri);
-      }, 3000);
+      }, 1000);
     }
 
     return () => {
