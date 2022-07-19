@@ -14,7 +14,6 @@ const initialState = {
   shouldCalculated: false,
 };
 
-// todo context guncelle
 
 const GameBoard = () => {
   let { questionId } = useParams();
@@ -71,8 +70,7 @@ const GameBoard = () => {
        
         const pageNumber = parseInt(questionId, 10);
         let navigateToUri = `/question/${pageNumber + 1}`;
-        // onceki state degerlerini kullanmak istiyorsak
-        // prevState ile kullaniyor olmak daha dogru olur
+  
 
         if (pageNumber === 10) {
           navigateToUri = '/final';
@@ -80,11 +78,7 @@ const GameBoard = () => {
           const localTotalScore = JSON.parse(localStorage.getItem('totalScore')) ?? 0;
           const localTotalQuestion = JSON.parse(localStorage.getItem('totalQuestion')) ?? 0;
           const localCorrectAnswer = JSON.parse(localStorage.getItem('correctAnswer')) ?? 0;
-      
-          // localStorage.setItem('totalScore', localTotalScore + score);
-          // localStorage.setItem('totalQuestion', localTotalQuestion + pageNumber);
-          // localStorage.setItem('correctAnswer', localCorrectAnswer + answer);
-      
+
         }
 
         setQuestionState((prevState) => ({
